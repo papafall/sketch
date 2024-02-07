@@ -1,5 +1,28 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  height: 100vh;
+  flex-direction: column;
+  gap: 50px;
+}
+
 #container {
   display: flex;
-  margin: 0;
-  padding: 0;
+  flex-wrap: wrap;
+  border: 1px solid #ccc;
+  width: 350px;
+}
+
+.square {
+  width: 20px;
+  height: 20px;
+  box-sizing: border-box;
+  border: 1px solid #fff;
+  background-color: #ccc;
+}
+
+.square:hover {
+  background-color: #3498db;
 }
