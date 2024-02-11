@@ -33,7 +33,9 @@ function sketchPad() {
   gridContainer.textContent = "";
 
   //Prompting the user to enter a number of squares
-  numOfSquares = parseInt(prompt("How Many squares?"));
+  numOfSquares = parseInt(
+    prompt("Select grid size - Enter a number between 1 and 100")
+  );
 
   // Create grid size using the number from prompt above
   for (let i = 0; i < numOfSquares; i++) {
