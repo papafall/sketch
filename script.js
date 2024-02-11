@@ -1,12 +1,9 @@
 //Getting the square request button
 const squareBtn = document.querySelector("#squareBtn");
-
 //Setting the grid default to 16x16
 let numOfSquares = 16;
-
 //Getting the main grid container
 const gridContainer = document.getElementById("container");
-
 //Defining when the mouse is clicked an held down
 let isMouseDown = false;
 gridContainer.addEventListener("mousedown", function () {
@@ -27,16 +24,25 @@ function draw(e) {
   }
 }
 
+//Function to prompt the user to enter a number and only return if it's a number between 1 and 100
+function getUserNum() {
+  numOfSquares = parseInt(
+    prompt("Select grid size - Enter a number between 1 and 100")
+  );
+  if (numOfSquares === null) {
+    // User canceled the prompt
+    alert("Canceled. Please enter a number.");
+  } else if (isNaN(numOfSquares) || numOfSquares > 100 || numOfSquares < 1) {
+    alert("Please enter a valid number between 1 and 100");
+    getUserNum(); // Prompt again in case of invalid input
+  }
+}
+
 //Function to create the grid once the user enters a number
 function sketchPad() {
   //Setting the grid to empty as a default
   gridContainer.textContent = "";
-
-  //Prompting the user to enter a number of squares
-  numOfSquares = parseInt(
-    prompt("Select grid size - Enter a number between 1 and 100")
-  );
-
+  getUserNum();
   // Create grid size using the number from prompt above
   for (let i = 0; i < numOfSquares; i++) {
     for (let j = 0; j < numOfSquares; j++) {
@@ -54,6 +60,7 @@ function sketchPad() {
       //Calling the drawing effecrt when mouse is clicked, held down, and dragged.
       gridItem.addEventListener("mouseover", draw);
       gridItem.addEventListener("mousedown", draw);
+      gridContainer.addEventListener("mousemove", draw);
     }
   }
 }
