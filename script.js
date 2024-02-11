@@ -1,10 +1,26 @@
 const squareBtn = document.querySelector("#squareBtn");
+let numOfSquares = 16;
+
+const gridContainer = document.getElementById("container");
+
+let isMouseDown = false;
+gridContainer.addEventListener("mousedown", function () {
+  isMouseDown = true;
+});
+gridContainer.addEventListener("mouseup", function () {
+  isMouseDown = false;
+});
+
+function draw(e) {
+  if (isMouseDown) {
+    e.style.backgroundColor = "black";
+  }
+}
 
 function sketchPad() {
-  const gridContainer = document.getElementById("container");
   gridContainer.textContent = "";
 
-  const numOfSquares = parseInt(prompt("How Many squares?"));
+  numOfSquares = parseInt(prompt("How Many squares?"));
 
   // Create 16x16 grid
   for (let i = 0; i < numOfSquares; i++) {
@@ -18,6 +34,9 @@ function sketchPad() {
       gridItem.style.cssText = `height: ${height}px; width: ${width}px;`;
 
       gridContainer.appendChild(gridItem);
+
+      gridItem.addEventListener("mouseover", draw);
+      gridItem.addEventListener("mousedown", draw);
     }
   }
 }
