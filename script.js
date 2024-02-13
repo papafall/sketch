@@ -85,18 +85,19 @@ function sketchPad() {
       clearBtn.addEventListener("click", function () {
         gridItem.style.backgroundColor = ""; // Clear the background color
         gridItem.classList.remove("black", "erase"); // Remove both "black" and "erase" classes
-        removeDrawingEvents();
       });
 
-      eraseBtn.addEventListener("click", function () {
-        gridItem.classList.toggle("erase");
-        removeDrawingEvents();
+      eraseBtn.addEventListener("click", eraseAction);
+
+      drawBtn.addEventListener("click", function () {
+        removeEraseEvents();
+        drawAction();
       });
 
-      function removeDrawingEvents() {
-        gridItem.removeEventListener("mouseover", draw);
-        gridItem.removeEventListener("mousedown", draw);
-        gridContainer.removeEventListener("mousemove", draw);
+      function removeEraseEvents() {
+        gridItem.removeEventListener("mouseover", erase);
+        gridItem.removeEventListener("mousedown", erase);
+        gridContainer.removeEventListener("mousemove", erase);
       }
     }
   }
