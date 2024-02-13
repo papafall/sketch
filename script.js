@@ -1,5 +1,8 @@
-//Getting the square request button
+//Getting the buttons DOM
 const squareBtn = document.querySelector("#squareBtn");
+const drawBtn = document.querySelector("#draw");
+const eraseBtn = document.querySelector("#erase");
+const clearBtn = document.querySelector("#clear");
 //Setting the grid default to 16x16
 let numOfSquares = 16;
 //Getting the main grid container
@@ -20,6 +23,14 @@ function draw(e) {
   if (isMouseDown) {
     if (!e.target.classList.contains("black")) {
       e.target.classList.toggle("black");
+    }
+  }
+}
+
+function erase(e) {
+  if (isMouseDown) {
+    if (!e.target.classList.contains("erase")) {
+      e.target.classList.toggle("erase");
     }
   }
 }
@@ -57,10 +68,36 @@ function sketchPad() {
 
       gridContainer.appendChild(gridItem);
 
-      //Calling the drawing effecrt when mouse is clicked, held down, and dragged.
-      gridItem.addEventListener("mouseover", draw);
-      gridItem.addEventListener("mousedown", draw);
-      gridContainer.addEventListener("mousemove", draw);
+      function drawAction() {
+        gridItem.addEventListener("mouseover", draw);
+        gridItem.addEventListener("mousedown", draw);
+        gridContainer.addEventListener("mousemove", draw);
+      }
+
+      function eraseAction() {
+        gridItem.addEventListener("mouseover", erase);
+        gridItem.addEventListener("mousedown", erase);
+        gridContainer.addEventListener("mousemove", erase);
+      }
+
+      drawAction();
+
+      clearBtn.addEventListener("click", function () {
+        gridItem.style.backgroundColor = ""; // Clear the background color
+        gridItem.classList.remove("black", "erase"); // Remove both "black" and "erase" classes
+        removeDrawingEvents();
+      });
+
+      eraseBtn.addEventListener("click", function () {
+        gridItem.classList.toggle("erase");
+        removeDrawingEvents();
+      });
+
+      function removeDrawingEvents() {
+        gridItem.removeEventListener("mouseover", draw);
+        gridItem.removeEventListener("mousedown", draw);
+        gridContainer.removeEventListener("mousemove", draw);
+      }
     }
   }
 }
