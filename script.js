@@ -93,6 +93,8 @@ function sketchPad() {
       clearBtn.addEventListener("click", function () {
         gridItem.style.backgroundColor = ""; // Clear the background color
         gridItem.classList.remove("black", "erase"); // Remove both "black" and "erase" classes
+        removeEraseEvents();
+        drawAction();
       });
 
       eraseBtn.addEventListener("click", function () {
